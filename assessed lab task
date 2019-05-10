@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+
+void pixelMean(float *r, float *g, float *b);
+
+int main() {
+    
+    float image[5][5][3];
+    int x, y;
+    FILE *fp;
+    
+    fp = fopen("rara.txt", "r");
+    
+    for (y = 0; y < 5; y++) {
+        for (x = 0; x < 5; x++) {
+            fscanf(fp, "%f", &image[x][y][0]);
+            fscanf(fp, "%f", &image[x][y][1]);
+            fscanf(fp, "%f", &image[x][y][2]);
+        }   
+    }
+
+    
+    for (y = 0; y < 2; y++) {
+        for (x = 0; x < 5; x++) {
+            pixelMean (&image[x][y][0], &image[x][y][1], &image[x][y][2]);
+            printf("%d %d: %f %f %f\n", y, x, image[x][y][0], image[x][y][1], image[x][y][2]);
+        }
+    }
+}
+
+void pixelMean(float *r, float *g, float *b) {
+
+    float mean = (*r + *g + *b) / 3;
+    *r = mean;
+    *g = mean;
+    *b = mean;
+    
+    return;
+}
